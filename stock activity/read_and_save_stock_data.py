@@ -54,11 +54,20 @@ if __name__ == "__main__":
     try:
         ticker = "unh"
         output_file = os.path.join(os.getcwd(), f"{ticker}.csv")
+        spy_output = os.path.join(os.getcwd(), "spy.csv")
 
         # Get stock data
         df = get_stock(
             ticker=ticker,
-            start_date="2025-06-30",
+            start_date="2021-06-30",
+            end_date="2026-06-30",
+            s_window=14,
+            l_window=50
+        )
+
+        spy = get_stock(
+            ticker="spy",
+            start_date="2021-06-30",
             end_date="2026-06-30",
             s_window=14,
             l_window=50
@@ -70,6 +79,12 @@ if __name__ == "__main__":
         if df is not None:
             df.to_csv(output_file, index=False)
             print(f"Successfully saved {len(df)} records to {output_file}")
+        else:
+            print("No data available to save.")
+
+        if spy is not None:
+            spy.to_csv(spy_output, index=False)
+            print(f"Successfully saved {len(spy)} records to {spy_output}")
         else:
             print("No data available to save.")
 
